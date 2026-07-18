@@ -148,6 +148,8 @@ class Calculator(QWidget):
         f.addRow("Credits applied (incl. IP/PR):", self._ispin("applied", 0, 300))
         f.addRow("Registered terms left to pay\n(lower it if current term is paid):",
                  self._ispin("terms_left", 0, 12))
+        f.addRow("Of those, terms your school funds\nat the OLD Pell (summer crossover -\nask your aid office which applies):",
+                 self._ispin("crossover_terms", 0, 12))
         fv.addLayout(f)
 
         g_sophia = QGroupBox("Sophia plan")

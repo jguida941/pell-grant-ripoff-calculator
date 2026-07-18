@@ -68,6 +68,13 @@ HELP_HTML = "".join([
     'registrar are the official word. This app is a budgeting model, not financial or academic '
     'advice.</p>',
 
+    h2("Summer crossover terms"),
+    '<p>A term that spans July 1 (for example Jun-Aug) sits across two federal award years, and '
+    'your school chooses which award year pays it. If your aid office says your summer term is '
+    'funded by the OLD award year, set "terms funded at the OLD Pell" on the Degree Progress '
+    'tab and the totals adjust. The question to ask them: "Which Pell award year funds my '
+    'current summer term, and what exact amount applies to it?"</p>',
+
     h2("Troubleshooting"),
     '<p><b>Tiles show "-"</b>: nothing entered yet. Import your audit or type a wage or Pell '
     'amount.<br>'

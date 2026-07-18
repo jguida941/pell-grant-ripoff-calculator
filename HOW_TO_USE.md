@@ -40,7 +40,17 @@ both awards.
 
 Child support, rent, food, electric, internet, phone, transportation, medical,
 other. Fill in only what applies to you. The tab shows what is left of your
-take-home pay each month under the old and new situation.
+take-home pay under the old and new situation, two ways: per 4-week budget
+period (4 paychecks) and per true calendar month (weekly pay x 52 / 12, the
+honest monthly average since bills are per calendar month).
+
+## Step 5b. Summer crossover (if you have a summer term)
+
+A term that spans July 1 sits across two federal award years, and your school
+chooses which award year pays it. Ask your aid office: "Which Pell award year
+funds my current summer term, and what exact amount applies to it?" If they say
+the OLD award year, set "terms funded at the OLD Pell" on the Degree Progress
+tab and the totals adjust.
 
 ## Step 6. Read the results
 

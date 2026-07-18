@@ -107,13 +107,24 @@ Example: a $7,395 award gives $1,848.75 per term against $2,124 tuition
 gives $255 per term, so you owe $1,869 per term ($934.50/month). That cut costs
 $796.88 more per month.
 
+**Summer crossover terms:** a term that spans July 1 sits across two federal
+award years, and the school chooses which award year pays it (FSA Handbook,
+"Summer Terms, Crossover Payment Periods, and Year-Round Pell"). If your aid
+office says your summer term is funded by the old award year, set "terms funded
+at the OLD Pell" on the Degree Progress tab and the totals adjust.
+
 ### 4. Money model
 
-- Take-home pay = hourly wage x hours x (1 - tax%). Months are 4 paychecks.
-- Monthly budget = take-home minus child support, rent, bills, and the
-  after-Pell school cost.
-- Cost to graduate = (registered terms x what you owe per term) + either one
-  more SNHU term per 6 unscheduled credits, or the Sophia subscription cost.
+- Take-home pay = hourly wage x hours x (1 - tax%).
+- The budget is shown two ways: a "4-week budget period" (4 paychecks; a year
+  has 13 of these) and a true calendar-month average (weekly pay x 52 / 12).
+  Bills like rent are per calendar month, so the calendar-month row is the
+  honest monthly average; only paychecks scale between the two views.
+- Budget = take-home minus child support, rent, bills, and the after-Pell
+  school cost.
+- Cost to graduate = (registered terms x what you owe per term, respecting the
+  crossover setting) + either one more SNHU term per 6 unscheduled credits, or
+  the Sophia subscription cost.
 
 ## Project structure
 

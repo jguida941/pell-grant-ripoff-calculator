@@ -62,11 +62,14 @@ IMPORT_PROMPT = (
 def render_dashboard(c, audit):
     v = c["in"]
     worse = c["n_left_mo"] - c["o_left_mo"]
+    worse_cal = c["n_left_mo_cal"] - c["o_left_mo_cal"]
     verdict = (
-        f'<font color="{GOOD}"><b>You come out AHEAD {money(worse)}/month vs the old situation.</b></font>'
+        f'<font color="{GOOD}"><b>You come out AHEAD {money(worse)} per 4-week period '
+        f'({money(worse_cal)} per calendar month) vs the old situation.</b></font>'
         if round(worse, 2) >= 0 else
-        f'<font color="{BAD}"><b>Despite the raise you are WORSE OFF by {money(-worse)}/month '
-        f'than at the old wage with the old Pell.</b></font>'
+        f'<font color="{BAD}"><b>Despite the raise you are WORSE OFF by {money(-worse)} per '
+        f'4-week period ({money(-worse_cal)} per true calendar month) than at the old wage '
+        f'with the old Pell.</b></font>'
     )
     raise_take = c["n_take_mo"] - c["o_take_mo"]
     school_up = c["n_school_mo"] - c["o_school_mo"]
@@ -100,7 +103,7 @@ def render_dashboard(c, audit):
         tile("Pell was cut by", money(c["pell_cut"]) + "/yr",
              f'{money(v["o_pell"])} to {money(v["n_pell"])}'),
         tile("School / month (NEW Pell)", money(c["n_school_mo"]), f'was {money(c["o_school_mo"])}'),
-        tile("Left over / month (NEW)", money(c["n_left_mo"]), f'was {money(c["o_left_mo"])}'),
+        tile("Left over / 4-week period (NEW)", money(c["n_left_mo"]), f'was {money(c["o_left_mo"])}'),
         "</tr>",
     ]
     if audit:
@@ -119,7 +122,7 @@ def render_dashboard(c, audit):
         f'<p style="font-size:15px">{verdict}</p>',
         f'<p>The Pell cut raised school from {money(c["o_school_mo"])} to {money(c["n_school_mo"])} '
         f'per month (<font color="{BAD}"><b>+{money(school_up)}/month</b></font>). '
-        f'Your raise is worth {money(raise_take)}/month after tax. '
+        f'Your raise is worth {money(raise_take)} per 4-week period after tax. '
         f'The school increase eats <b>{pct:.0f}%</b> of it.</p>',
     ]
     return "".join(parts)
@@ -177,18 +180,25 @@ def render_school(c):
 
 
 def render_budget(c):
-    rows = [h2("MONTHLY BUDGET (4-week month)"), TABLE,
+    rows = [h2("BUDGET (4-week budget period)"), TABLE,
             th(("", "left"), ("OLD", "right"), ("NEW", "right")),
-            tr("Take-home pay", money(c["o_take_mo"]), money(c["n_take_mo"]))]
+            tr("Take-home pay (4 paychecks)", money(c["o_take_mo"]), money(c["n_take_mo"]))]
     for label, val in c["bill_items"]:
         if val > 0:
             rows.append(tr(f"- {label}", money(-val), money(-val)))
     rows += [
         tr("- School (after Pell)", money(-c["o_school_mo"]), money(-c["n_school_mo"])),
-        tr("= LEFT OVER per month", color(c["o_left_mo"]), color(c["n_left_mo"]), bold=True),
+        tr("= LEFT OVER per 4-week period", color(c["o_left_mo"]), color(c["n_left_mo"]), bold=True),
+        tr("True calendar-month take-home (x 52/12)",
+           money(c["o_take_mo_cal"]), money(c["n_take_mo_cal"])),
+        tr("= LEFT OVER per calendar month", color(c["o_left_mo_cal"]), color(c["n_left_mo_cal"]),
+           bold=True),
         "</table>",
         f'<p>Bills total {money(c["bills"])}/month. Add food and utilities on the left '
         f'to see the real picture.</p>',
+        '<p><i>Note: a "4-week period" is 4 paychecks; a year has 13 of those but only 12 '
+        'calendar months. Bills like rent are per calendar month, so the calendar-month row '
+        '(weekly pay x 52 / 12) is the honest monthly average.</i></p>',
     ]
     return "".join(rows)
 
@@ -225,6 +235,15 @@ def render_degree(c, audit, terms):
            money(c["o_registered_cost"]), money(c["n_registered_cost"]), bold=True),
         "</table>",
     ]
+    if c["crossover_terms"] > 0:
+        rows.append(
+            f'<p><i>The NEW Pell total above prices the first {c["crossover_terms"]} '
+            f'registered term(s) at the OLD Pell rate (summer crossover setting on the left).</i></p>')
+    rows.append(
+        '<p><b>Summer crossover:</b> a term that spans July 1 (like a Jun-Aug term) can be paid '
+        'from EITHER award year; your school assigns it. Ask your aid office: "Which Pell award '
+        'year funds my current summer term, and what exact amount applies to it?" Then set '
+        '"terms funded at the OLD Pell" on the left to match.</p>')
     if c["unsched"] > 0:
         rows += [
             h2(f"Still unscheduled: {c['unsched']} credits ({c['unsched_classes']} classes)"),

@@ -46,10 +46,21 @@ def compute(v):
     c["bills"] = sum(val for _, val in c["bill_items"])
     c["o_left_mo"] = c["o_take_mo"] - c["bills"] - c["o_school_mo"]
     c["n_left_mo"] = c["n_take_mo"] - c["bills"] - c["n_school_mo"]
+    # True calendar-month average: 52 weeks / 12 months, not 4 paychecks.
+    # Bills like rent are per calendar month, so this is the honest average.
+    for tag in ("o", "n"):
+        c[f"{tag}_take_mo_cal"] = c[f"{tag}_take_wk"] * 52 / 12
+        c[f"{tag}_left_mo_cal"] = c[f"{tag}_take_mo_cal"] - c["bills"] - c[f"{tag}_school_mo"]
 
     c["terms_left"] = int(v["terms_left"])
     c["o_registered_cost"] = c["terms_left"] * c["o_owed_term"]
-    c["n_registered_cost"] = c["terms_left"] * c["n_owed_term"]
+    # Summer crossover: a term spanning July 1 can be paid from EITHER award
+    # year (school's call, per the FSA Handbook). Terms the school assigns to
+    # the old award year still cost the OLD Pell rate.
+    cross = min(int(v.get("crossover_terms", 0)), c["terms_left"])
+    c["crossover_terms"] = cross
+    c["n_registered_cost"] = (cross * c["o_owed_term"]
+                              + (c["terms_left"] - cross) * c["n_owed_term"])
 
     # Unscheduled credits (required minus applied), priced term by term.
     unsched = max(0, int(v["req"]) - int(v["applied"]))
