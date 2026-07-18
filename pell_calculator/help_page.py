@@ -80,6 +80,10 @@ HELP_HTML = "".join([
     'amount.<br>'
     '<b>Numbers look wrong</b>: check your tax percent and that Pell awards are per YEAR, not '
     'per term.<br>'
+    '<b>"No module named \'pypdf\'" when importing</b>: the app was started with a Python '
+    'that doesn\'t have the requirements installed. Close it and launch with "python3 '
+    'start.py" (or double-click start.command on a Mac) - it sets up everything '
+    'automatically.<br>'
     '<b>PDF will not import</b>: it must be a Degree Works Academic Evaluation PDF. You can '
     'still type credits required/applied and terms left on the Degree Progress tab.</p>',
 ])

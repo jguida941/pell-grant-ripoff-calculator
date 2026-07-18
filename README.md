@@ -9,23 +9,37 @@ finish your open requirements by transfer credit for a fraction of tuition.
 The app starts EMPTY. Nothing about your degree is hardcoded: import your own
 audit PDF and watch every tab fill in from your actual data.
 
-## Install
+## Run it (one command, any OS)
 
 ```
-python3 -m pip install -r requirements.txt
+python3 start.py
 ```
 
-## Run
+On a Mac you can also just **double-click `start.command`** in Finder — it runs
+the same thing.
+
+The first run creates a private virtual environment in a `.venv` folder inside
+this project and installs everything from `requirements.txt` into it (PyQt6 for
+the app, pypdf for reading your audit PDF) — give it a minute. Every run after
+that reuses the venv and launches straight away. Nothing is installed outside
+the project folder; delete `.venv` to undo everything.
+
+macOS note: the first time you double-click `start.command`, Gatekeeper may make
+you right-click it and choose **Open**. If Finder still won't run it, open
+Terminal in this folder and run `python3 start.py`.
+
+## Manual install and run (if you'd rather not use the launcher)
 
 ```
-python3 -m pell_calculator
+python3 -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+python3 payment_calc.py          # or: python3 -m pell_calculator
 ```
 
-or the old command, which still works:
-
-```
-python3 payment_calc.py
-```
+Running with a plain `python3` that doesn't have the requirements installed
+fails with "No module named 'PyQt6'" (at launch) or "No module named 'pypdf'"
+(when importing your audit PDF) — that is what the venv fixes.
 
 ## Quick start
 
@@ -132,6 +146,8 @@ at the OLD Pell" on the Degree Progress tab and the totals adjust.
 payment_cal/
 ├── README.md
 ├── HOW_TO_USE.md            # step-by-step user guide (also on the Help tab)
+├── start.py                 # universal auto-launcher (venv + install + run)
+├── start.command            # macOS double-click wrapper around start.py
 ├── requirements.txt
 ├── payment_calc.py          # thin launcher (kept for the old command)
 └── pell_calculator/

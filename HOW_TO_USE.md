@@ -2,6 +2,24 @@
 
 This same guide is inside the app on the **Help** tab.
 
+## Step 0. Launch the app
+
+One command, any computer:
+
+```
+python3 start.py
+```
+
+On a Mac you can also just **double-click `start.command`** in the project
+folder (the first time, macOS may make you right-click it and choose **Open**).
+
+The first launch creates a private `.venv` folder in the project and installs
+the two requirements (PyQt6 and pypdf) into it automatically — give it a
+minute. Every launch after that is instant. If you instead start the app with
+plain `python3 payment_calc.py` and see "No module named 'PyQt6'" or "No module
+named 'pypdf'", that Python doesn't have the requirements — close it and use
+`python3 start.py`.
+
 ## Step 1. Get your audit PDF
 
 Log in to your student portal, open your **Academic Evaluation** (Degree Works),
@@ -91,6 +109,11 @@ academic advice.
   Pell amount.
 - **Numbers look wrong**: check your tax percent and that Pell awards are per
   YEAR, not per term.
+- **"No module named 'pypdf'" when importing** (or "No module named 'PyQt6'"
+  at launch): the app was started with a Python that doesn't have the
+  requirements installed. Close it and launch with `python3 start.py` (or
+  double-click `start.command` on a Mac) — it installs everything into `.venv`
+  automatically.
 - **PDF will not import**: it must be a Degree Works Academic Evaluation PDF.
   You can still type credits required/applied and terms left on the Degree
   Progress tab.
